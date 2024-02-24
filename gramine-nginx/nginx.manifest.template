@@ -1,0 +1,63 @@
+loader.entrypoint = "file:{{ gramine.libos }}"
+libos.entrypoint = "libos-entry"
+
+loader.log_level = "{{ log_level }}"
+
+loader.env.LD_LIBRARY_PATH = "/lib:{{ arch_libdir }}:/usr{{ arch_libdir }}"
+
+# Gramine add run CMD
+loader.argv = ["/opt/nginx/sbin/nginx"]
+# Gramine add run CMD end
+
+# Gramine by default reports the root user (uid = 0) to applications. This default behavior forces
+# Nginx to attempt to drop privileges and assume some non-privileged user ID via setuid(), which is
+# meaningless in Gramine. Instead, we set up a dummy user (uid = 1000); this is irrelevant for
+# consequent Nginx execution anyway.
+loader.uid = 1000
+loader.gid = 1000
+
+sys.enable_sigterm_injection = true
+
+fs.mounts = [
+  { path = "{{ gramine.runtimedir() }}", uri = "file:{{ gramine.runtimedir() }}" },
+  { path = "{{ arch_libdir }}", uri = "file:{{ arch_libdir }}" },
+  { path = "/usr{{ arch_libdir }}", uri = "file:/usr{{ arch_libdir }}" },
+  { type = "encrypted", key_name = "_sgx_mrsigner", path = "/wetee", uri = "file:/wetee" },
+  # Gramine add mount
+  { path = "/opt/nginx", uri = "file:/opt/nginx" },
+  # Gramine add mount end
+]
+
+sgx.debug = true
+sgx.edmm_enable = {{ 'true' if env.get('EDMM', '0') == '1' else 'false' }}
+sgx.enclave_size = "1024M"
+# sgx.max_threads = {{ '1' if env.get('EDMM', '0') == '1' else '4' }}
+sgx.max_threads = 8
+
+sgx.trusted_files = [
+  "file:{{ gramine.libos }}",
+  "file:{{ gramine.runtimedir() }}/",
+  "file:{{ arch_libdir }}/",
+  "file:/usr/{{ arch_libdir }}/",
+  "file:libos-entry",
+  "file:/wetee/",
+  # Gramine add trusted file
+  "file:/opt/nginx/",
+  # Gramine add trusted file end
+]
+
+
+sgx.allowed_files = [
+  "file:/etc/hosts",
+  "file:/etc/host.conf",
+  "file:/etc/gai.conf",
+  "file:/etc/resolv.conf",
+  "file:/etc/localtime",
+  "file:/etc/nsswitch.conf",
+  # Gramine add file
+  "file:/opt/nginx/logs",
+]
+
+# enable DCAP
+# sgx.remote_attestation = "dcap"
+sgx.remote_attestation = "none"
