@@ -18,6 +18,8 @@ if [ -f "nginx.sig" ] ; then
     rm "nginx.sig"
 fi
 
+sudo cp ./hello /srv/hello
+
 gramine-manifest -Dlog_level=debug -Darch_libdir=/lib/x86_64-linux-gnu app.manifest.template app.manifest
 
 gramine-sgx-sign --manifest app.manifest --output app.manifest.sgx
