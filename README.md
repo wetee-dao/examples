@@ -110,7 +110,6 @@ sgx.trusted_files = [
   "file:{{ arch_libdir }}/",
   "file:/usr/{{ arch_libdir }}/",
   "file:libos-entry",
-  "file:/wetee/",
   # Gramine add trusted file
   "file:/opt/rust/my-gramine-app",
   # Gramine add trusted file end
@@ -124,6 +123,7 @@ sgx.allowed_files = [
   "file:/etc/resolv.conf",
   "file:/etc/localtime",
   "file:/etc/nsswitch.conf",
+  "file:/wetee/",
   # Gramine add file
 
 ]

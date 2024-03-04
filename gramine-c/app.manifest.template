@@ -24,11 +24,11 @@ fs.mounts = [
   # Gramine add mount end
 ]
 
-sgx.debug = true
+sgx.debug = false
 sgx.edmm_enable = {{ 'true' if env.get('EDMM', '0') == '1' else 'false' }}
-sgx.enclave_size = "1024M"
+# sgx.enclave_size = "1024M"
 # sgx.max_threads = {{ '1' if env.get('EDMM', '0') == '1' else '4' }}
-sgx.max_threads = 8
+sgx.max_threads = 32
 
 sgx.trusted_files = [
   "file:{{ gramine.libos }}",
@@ -36,7 +36,6 @@ sgx.trusted_files = [
   "file:{{ arch_libdir }}/",
   "file:/usr/{{ arch_libdir }}/",
   "file:libos-entry",
-  "file:/wetee/",
   # Gramine add trusted file
   "file:/srv/hello",
   # Gramine add trusted file end
@@ -50,11 +49,11 @@ sgx.allowed_files = [
   "file:/etc/resolv.conf",
   "file:/etc/localtime",
   "file:/etc/nsswitch.conf",
+  "file:/wetee/",
   # Gramine add file
   # ...
   # Gramine add file end
 ]
 
 # enable DCAP
-# sgx.remote_attestation = "dcap"
-sgx.remote_attestation = "none"
+sgx.remote_attestation = "dcap"
