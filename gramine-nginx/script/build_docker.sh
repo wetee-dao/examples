@@ -21,3 +21,5 @@ fi
 gramine-manifest -Dlog_level=debug -Darch_libdir=/lib/x86_64-linux-gnu nginx.manifest.template nginx.manifest
 
 docker build -t wetee/gnginx .
+
+docker push wetee/gnginx

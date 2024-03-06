@@ -129,8 +129,7 @@ sgx.allowed_files = [
 ]
 
 # enable DCAP
-# sgx.remote_attestation = "dcap"
-sgx.remote_attestation = "none"
+sgx.remote_attestation = "dcap"
 ```
 
 #### 2.4 Build docker image
