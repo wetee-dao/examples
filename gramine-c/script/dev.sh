@@ -7,13 +7,14 @@ while [ -h "$SOURCE"  ]; do
 done
 DIR="$( cd -P "$( dirname "$SOURCE"  )" && pwd  )"
 
-# # 编译新的libos-entry
-# cd $DIR/../../../libos-entry/bin/
-# if [ -f "libos-entry" ] ; then
-#     rm "libos-entry"
-# fi
-# CGO_CFLAGS=-I/opt/ego/include CGO_LDFLAGS=-L/opt/ego/lib ertgo build -o libos-entry -buildmode=pie -buildvcs=false ../lib/entry/main.go
-# cp libos-entry $DIR/../
+# 编译新的libos-entry
+cd $DIR/../../../libos-entry/bin/
+if [ -f "libos-entry" ] ; then
+    rm "libos-entry"
+fi
+
+ertgo build -o libos-entry -buildmode=pie -buildvcs=false ../lib/entry/main.go
+cp libos-entry $DIR/../
 
 # 运行程序
 cd $DIR/../
@@ -29,6 +30,12 @@ if [ -f "nginx.sig" ] ; then
 fi
 
 sudo cp ./hello /srv/hello
+sudo rm -rf /wetee
+sudo mkdir /wetee
+sudo chmod 777 /wetee
+
+export APPID=AAIAAAQAAgABAAAAEhX%2F%2F%2F%2BADgAAAAAAAAAAAAsAAAAAAAD%2FAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAmsEh%2Fd3L1MFaioQfK5EngnowPzcScScPjQtmv5kiXKl3Nf0Tt9LYBC4ou2g%3D
+export WORKER_ADDR=https://192.168.111.105:38883
 
 gramine-manifest -Dlog_level=error -Darch_libdir=/lib/x86_64-linux-gnu app.manifest.template app.manifest
 

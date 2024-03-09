@@ -18,6 +18,7 @@ if [ -f "app.sig" ] ; then
     rm "app.sig"
 fi
 
-gramine-manifest -Dlog_level=debug -Darch_libdir=/lib/x86_64-linux-gnu app.manifest.template app.manifest
+tag=`date "+%Y-%m-%d-%H-%M"`
 
-docker build -t my-app .
+docker build -t wetee/gpython:$tag .
+docker push wetee/gpython:$tag

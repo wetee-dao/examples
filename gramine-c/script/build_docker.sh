@@ -18,6 +18,9 @@ if [ -f "nginx.sig" ] ; then
     rm "nginx.sig"
 fi
 
-# gramine-manifest -Dlog_level=debug -Darch_libdir=/lib/x86_64-linux-gnu app.manifest.template app.manifest
+# gramine-manifest -Dlog_level=error -Darch_libdir=/lib/x86_64-linux-gnu app.manifest.template app.manifest
 
-docker build -t my-app .
+tag=`date "+%Y-%m-%d-%H-%M"`
+
+docker build -t wetee/gramine-c:$tag .
+docker push wetee/gramine-c:$tag

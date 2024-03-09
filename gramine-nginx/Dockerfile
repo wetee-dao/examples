@@ -18,4 +18,4 @@ RUN gramine-sgx-gen-private-key \
 
 RUN mkdir /wetee
 
-ENTRYPOINT ["/bin/sh", "-c" ,"gramine-sgx-sign --manifest nginx.manifest --output nginx.manifest.sgx && gramine-sgx nginx"]
+ENTRYPOINT ["/bin/sh", "-c" ,"/init_aesm.sh && gramine-sgx-sign --manifest nginx.manifest --output nginx.manifest.sgx && gramine-sgx nginx"]

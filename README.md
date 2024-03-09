@@ -77,6 +77,9 @@ libos.entrypoint = "libos-entry"
 loader.log_level = "{{ log_level }}"
 
 loader.env.LD_LIBRARY_PATH = "/lib:{{ arch_libdir }}:/usr{{ arch_libdir }}"
+loader.env.IN_TEE = { passthrough = true }
+loader.env.APPID = { passthrough = true }
+loader.env.WORKER_ADDR = { passthrough = true }
 
 # Gramine add run CMD
 loader.argv = ["/opt/rust/my-gramine-app"]
@@ -87,6 +90,7 @@ loader.uid = 1000
 loader.gid = 1000
 
 sys.enable_sigterm_injection = true
+sys.enable_extra_runtime_domain_names_conf = true
 
 fs.mounts = [
   { path = "{{ gramine.runtimedir() }}", uri = "file:{{ gramine.runtimedir() }}" },
@@ -102,7 +106,7 @@ sgx.debug = true
 sgx.edmm_enable = {{ 'true' if env.get('EDMM', '0') == '1' else 'false' }}
 sgx.enclave_size = "1024M"
 # sgx.max_threads = {{ '1' if env.get('EDMM', '0') == '1' else '4' }}
-sgx.max_threads = 8
+sgx.max_threads = 32
 
 sgx.trusted_files = [
   "file:{{ gramine.libos }}",
@@ -144,11 +148,11 @@ ADD target/debug/my-gramine-app /opt/rust/
 ADD app.manifest.template /
 
 RUN gramine-sgx-gen-private-key \
-    && gramine-manifest -Dlog_level=debug -Darch_libdir=/lib/x86_64-linux-gnu app.manifest.template app.manifest
+    && gramine-manifest -Dlog_level=error -Darch_libdir=/lib/x86_64-linux-gnu app.manifest.template app.manifest
 
 RUN mkdir /wetee
 
-ENTRYPOINT ["/bin/sh", "-c" ,"gramine-sgx-sign --manifest app.manifest --output app.manifest.sgx && gramine-sgx app"]
+ENTRYPOINT ["/bin/sh", "-c" ,"/init_aesm.sh && gramine-sgx-sign --manifest app.manifest --output app.manifest.sgx && gramine-sgx app"]
 ```
 
 

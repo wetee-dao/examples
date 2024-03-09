@@ -6,21 +6,13 @@ while [ -h "$SOURCE"  ]; do
     [[ $SOURCE != /*  ]] && SOURCE="$DIR/$SOURCE"
 done
 DIR="$( cd -P "$( dirname "$SOURCE"  )" && pwd  )"
-cd $DIR/../
-
-cargo build 
-
-if [ -f "app.manifest" ] ; then
-    rm "app.manifest"
-fi
-if [ -f "app.manifest.sgx" ] ; then
-    rm "app.manifest.sgx"
-fi
-if [ -f "app.sig" ] ; then
-    rm "app.sig"
-fi
+cd $DIR
 
 tag=`date "+%Y-%m-%d-%H-%M"`
 
-docker build -t wetee/grust:$tag .
-docker push wetee/grust:$tag
+docker run --device /dev/sgx/enclave --device /dev/sgx/provision \
+    -v ${PWD}:/srv wetee/ego-ubuntu-builder:20.04 \
+    bash -c "cd /srv && ego-go build -o ./hello ./hello.go"
+
+docker build -t wetee/ego-hello:$tag .
+docker push wetee/ego-hello:$tag

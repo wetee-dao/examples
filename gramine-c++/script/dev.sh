@@ -18,7 +18,7 @@ if [ -f "nginx.sig" ] ; then
     rm "nginx.sig"
 fi
 
-gramine-manifest -Dlog_level=debug -Darch_libdir=/lib/x86_64-linux-gnu app.manifest.template app.manifest
+gramine-manifest -Dlog_level=error -Darch_libdir=/lib/x86_64-linux-gnu app.manifest.template app.manifest
 
 gramine-sgx-sign --manifest app.manifest --output app.manifest.sgx
 gramine-sgx app

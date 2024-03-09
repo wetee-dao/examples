@@ -1,6 +1,5 @@
 FROM wetee/gramine-ubuntu:20.04
 
-RUN apt update && DEBIAN_FRONTEND=noninteractive  apt install -y wget build-essential libpcre3 libpcre3-dev zlib1g zlib1g-dev libssl-dev libgd-dev libxml2 libxml2-dev uuid-dev
 
 # app install
 ADD hello /srv/hello
@@ -9,8 +8,8 @@ ADD hello /srv/hello
 ADD app.manifest.template /
 
 RUN gramine-sgx-gen-private-key \
-    && gramine-manifest -Dlog_level=debug -Darch_libdir=/lib/x86_64-linux-gnu app.manifest.template app.manifest
+    && gramine-manifest -Dlog_level=error -Darch_libdir=/lib/x86_64-linux-gnu app.manifest.template app.manifest
 
 RUN mkdir /wetee
 
-ENTRYPOINT ["/bin/sh", "-c" ,"gramine-sgx-sign --manifest app.manifest --output app.manifest.sgx && gramine-sgx app"]
+ENTRYPOINT ["/bin/sh", "-c" ,"/init_aesm.sh && gramine-sgx-sign --manifest app.manifest --output app.manifest.sgx && gramine-sgx app"]

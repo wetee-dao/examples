@@ -18,6 +18,6 @@ if [ -f "app.sig" ] ; then
     rm "app.sig"
 fi
 
-gramine-manifest -Dlog_level=debug -Darch_libdir=/lib/x86_64-linux-gnu app.manifest.template app.manifest
+gramine-manifest -Dlog_level=error -Darch_libdir=/lib/x86_64-linux-gnu app.manifest.template app.manifest
 
 docker build -t my-app .
