@@ -1,6 +1,6 @@
 module test
 
-go 1.21.6
+go 1.21
 
 require github.com/wetee-dao/libos-entry v0.0.0-20240306081842-78655ee02f0b
 

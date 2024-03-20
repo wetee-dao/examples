@@ -1,7 +1,9 @@
 #### 1 Build docker image
 ```bash
 # build executable bin
-ego-go build hello.go
+docker run --device /dev/sgx/enclave --device /dev/sgx/provision \
+    -v ${PWD}:/srv wetee/ego-ubuntu:20.04 \
+    bash -c "cd /srv && ego-go build hello.go"
 
 docker build -t wetee/my-app .
 ```

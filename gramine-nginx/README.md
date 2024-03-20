@@ -1,6 +1,6 @@
 #### 1 Build docker image
 ```bash
-sh script/build_docker.sh 
+docker build -t wetee/gnginx .
 ```
 
 #### 2 Run docker image
