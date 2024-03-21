@@ -5,3 +5,5 @@ bin
 hello
 target
 libos-entry
+dist
+proxx
