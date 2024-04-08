@@ -28,7 +28,7 @@ ego-go build main.go
 
 #### 1.3 Modify Dockerfile
 ```dockerfile
-FROM wetee/ego-ubuntu-deploy:20.04
+FROM wetee/ego-ubuntu-deploy:22.04
 WORKDIR /
 
 # Add executable file and files
@@ -139,7 +139,7 @@ sgx.remote_attestation = "dcap"
 #### 2.4 Build docker image
 - Modify Dockerfile
 ```dockerfile
-FROM wetee/gramine-ubuntu:20.04
+FROM wetee/gramine-ubuntu:22.04
 
 # app install
 ADD target/debug/my-gramine-app /opt/rust/

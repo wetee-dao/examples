@@ -1,4 +1,4 @@
-FROM wetee/gramine-ubuntu:20.04
+FROM wetee/gramine-ubuntu:22.04
 
 
 # app install

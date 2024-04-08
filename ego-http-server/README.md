@@ -2,7 +2,7 @@
 ```bash
 # build executable bin
 docker run --device /dev/sgx/enclave --device /dev/sgx/provision \
-    -v ${PWD}:/srv wetee/ego-ubuntu:20.04 \
+    -v ${PWD}:/srv wetee/ego-ubuntu:22.04 \
     bash -c "cd /srv && ego-go build hello.go"
 
 docker build -t wetee/my-app .
