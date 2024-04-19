@@ -9,7 +9,7 @@ loader.env.APPID = { passthrough = true }
 loader.env.WORKER_ADDR = { passthrough = true }
 
 # Gramine add run CMD
-loader.argv = ["{{ py }}","helloworld.py"]
+loader.argv = ["{{ nodejs_dir }}/bin/node","/opt/app/src/index.js"]
 # Gramine add run CMD end
 
 loader.uid = 1000
@@ -21,34 +21,28 @@ sys.enable_extra_runtime_domain_names_conf = true
 fs.mounts = [
   { path = "/lib", uri = "file:{{ gramine.runtimedir() }}" },
   { path = "{{ arch_libdir }}", uri = "file:{{ arch_libdir }}" },
-  { path = "/usr{{ arch_libdir }}", uri = "file:/usr{{ arch_libdir }}" },
   { type = "encrypted", key_name = "_sgx_mrsigner", path = "/wetee", uri = "file:/wetee" },
   # Gramine add mount
-{% for path in python.get_sys_path(py) %}
-  { path = "{{ path }}", uri = "file:{{ path }}" },
-{% endfor %}
-  { path = "{{ py }}", uri = "file:{{ py }}" },
+  { uri = "file:{{ nodejs_dir }}", path = "{{ nodejs_dir }}" },
+  { uri = "file:/opt/app", path = "/opt/app" },
   # Gramine add mount end
 ]
 
 sgx.debug = true
 sgx.edmm_enable = {{ 'true' if env.get('EDMM', '0') == '1' else 'false' }}
-sgx.enclave_size = "1024M"
+sgx.enclave_size = "2G"
 # sgx.max_threads = {{ '1' if env.get('EDMM', '0') == '1' else '4' }}
 sgx.max_threads = 32
+sys.insecure__allow_eventfd = true
 
 sgx.trusted_files = [
   "file:{{ gramine.libos }}",
   "file:{{ gramine.runtimedir() }}/",
   "file:{{ arch_libdir }}/",
-  "file:/usr/{{ arch_libdir }}/",
   "file:libos-entry",
   # Gramine add trusted file
-{% for path in python.get_sys_path(py) %}
-  "file:{{ path }}{{ '/' if path.is_dir() else '' }}",
-{% endfor %}
-  "file:{{ py }}",
-  "file:helloworld.py",
+  "file:{{ nodejs_dir }}/",
+  "file:/opt/app/",
   # Gramine add trusted file end
 ]
 
@@ -62,8 +56,6 @@ sgx.allowed_files = [
   "file:/etc/nsswitch.conf",
   "file:/wetee/",
   # Gramine add file
-  # ...
-  # Gramine add file end
 ]
 
 # enable DCAP
