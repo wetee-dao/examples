@@ -25,8 +25,8 @@ var staticDir = "/srv/dist"
 func resourceHandler(w http.ResponseWriter, req *http.Request) {
 	fmt.Printf("Serving up path %s", req.URL.Path)
 	if req.URL.Path == "/" || req.URL.Path == "" {
-		fmt.Printf("...redirecting to [" + staticDir + "/no-prerender.html]")
-		http.ServeFile(w, req, staticDir+"/no-prerender.html")
+		fmt.Printf("...redirecting to [" + staticDir + "/index.html]")
+		http.ServeFile(w, req, staticDir+"/index.html")
 	} else {
 		http.ServeFile(w, req, staticDir+"/"+req.URL.Path)
 	}
