@@ -1,5 +1,5 @@
 # Base image for common dependencies
-FROM node:18.17.1 as common-deps
+FROM node:18-bullseye as common-deps
 
 WORKDIR /app
 
@@ -45,10 +45,10 @@ RUN npx nx build twenty-front
 
 
 # Final stage: Run the application
-FROM node:18.17.1 as twenty
+FROM node:18-bullseye as twenty
 
 # Used to run healthcheck in docker
-RUN apk add --no-cache curl jq
+RUN apt update && apt install -y curl jq
 
 COPY ./packages/twenty-docker/twenty/entrypoint.sh /app/entrypoint.sh
 RUN chmod +x /app/entrypoint.sh
