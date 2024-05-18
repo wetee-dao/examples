@@ -1,8 +1,11 @@
-FROM livekit/livekit-server
+FROM node:20-alpine
 
 WORKDIR /
 
-ADD ./run.sh /
-RUN chmod +x /run.sh
+ADD /ui/.next/standalone /standalone
+ADD /ui/public /standalone/public
+ADD /ui/.next/static /standalone/.next/static
 
-ENTRYPOINT ["/bin/sh", "-c", "/run.sh"]
+WORKDIR /standalone
+
+CMD ["/bin/sh", "-c", "node server.js"]
