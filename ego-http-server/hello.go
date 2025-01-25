@@ -3,11 +3,11 @@ package main
 import (
 	"net/http"
 
-	"github.com/wetee-dao/libos-entry/lib/ego"
+	"github.com/wetee-dao/libos-entry/entry/ego"
 )
 
 func main() {
-	err := ego.InitEgo("")
+	err := ego.InitEgo()
 	if err != nil {
 		panic(err)
 	}

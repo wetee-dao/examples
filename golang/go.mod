@@ -1,8 +1,8 @@
-module test
+module wetee/go-example
 
-go 1.21
+go 1.21.6
 
-require github.com/wetee-dao/libos-entry v0.1.2-0.20250125100031-44b4f294c9f1
+github.com/wetee-dao/libos-entry 44b4f294c9f143112f07bd5fba985d1450edab10
 
 require (
 	github.com/ChainSafe/go-schnorrkel v1.1.0 // indirect

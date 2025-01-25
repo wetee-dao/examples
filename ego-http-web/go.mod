@@ -2,7 +2,7 @@ module test
 
 go 1.21
 
-require github.com/wetee-dao/libos-entry v0.0.0-20240306081842-78655ee02f0b
+github.com/wetee-dao/libos-entry 44b4f294c9f143112f07bd5fba985d1450edab10
 
 require (
 	github.com/ChainSafe/go-schnorrkel v1.0.0 // indirect

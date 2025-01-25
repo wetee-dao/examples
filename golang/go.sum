@@ -103,8 +103,8 @@ github.com/vedhavyas/go-subkey/v2 v2.0.0 h1:LemDIsrVtRSOkp0FA8HxP6ynfKjeOj3BY2U9
 github.com/vedhavyas/go-subkey/v2 v2.0.0/go.mod h1:95aZ+XDCWAUUynjlmi7BtPExjXgXxByE0WfBwbmIRH4=
 github.com/wetee-dao/go-sdk v0.1.2-0.20250124054825-aa0db97641fe h1:Ci7T52JsDQ2jMH5HgPpJbm2i6Cn9OlotcUnNzk+HxIU=
 github.com/wetee-dao/go-sdk v0.1.2-0.20250124054825-aa0db97641fe/go.mod h1:XtiBTpTq3GcoC4IHybIE07yzj9RwDO1Px37BANw2Zrk=
-github.com/wetee-dao/libos-entry v0.1.2-0.20250125100031-44b4f294c9f1 h1:yEUlXSBiN29H3hNIDdTLUQ2oVj6h724tlgTJ0hmhs20=
-github.com/wetee-dao/libos-entry v0.1.2-0.20250125100031-44b4f294c9f1/go.mod h1:x9OggnxrkSFth2Wxiwt3x4potBUlhEdhRA7XSEfTqGw=
+github.com/wetee-dao/libos-entry v0.1.2-0.20250125062836-046279d07540 h1:IBJJHLM+3OcQhH9rNL+2WpwQ8+9V860voc1+amwPoVs=
+github.com/wetee-dao/libos-entry v0.1.2-0.20250125062836-046279d07540/go.mod h1:x9OggnxrkSFth2Wxiwt3x4potBUlhEdhRA7XSEfTqGw=
 github.com/yuin/goldmark v1.4.13/go.mod h1:6yULJ656Px+3vBD8DxQVa3kxgyrAnzto9xy5taEt/CY=
 golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=
 golang.org/x/crypto v0.0.0-20200728195943-123391ffb6de/go.mod h1:LzIPMQfyMNhhGPhUkYOs5KpL4U8rLKemX1yGLhDgUto=

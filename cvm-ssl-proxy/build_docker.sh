@@ -17,3 +17,5 @@ cd $DIR/
 
 docker build -t wetee/cvm-ssl-proxy:$tag .
 docker push wetee/cvm-ssl-proxy:$tag
+
+cosign sign --key cosign.key wetee/cvm-ssl-proxy:$tag
